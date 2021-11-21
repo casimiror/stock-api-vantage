@@ -106,3 +106,7 @@ response:
   "close deviation": "6.6100"
 }
 ```
+To check an example of the app, please go to the following URL:
+```
+http://35.199.92.21
+```
