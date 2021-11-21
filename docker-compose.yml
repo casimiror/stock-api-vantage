@@ -1,0 +1,44 @@
+version: "2.1"
+
+services:
+  web:
+    restart: always
+    build: .
+    image: stockapi:latest
+    ports:
+      - "8000"
+    expose:
+        - 8000
+    env_file: .env
+    entrypoint: /bin/bash
+    command: "init.sh"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/usr/src/app
+      - ./static/:/usr/src/app/static/
+    networks:
+      - back-tier
+
+  nginx:
+    image: nginx:1.17-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/nginx/ssl
+      - ./certbot/data:/var/www/html
+    depends_on:
+      - web
+    networks:
+      - back-tier
+
+
+volumes:
+  redisdata:
+  pgdata:
+
+networks:
+  back-tier:
+    driver: bridge
