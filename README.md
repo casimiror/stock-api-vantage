@@ -110,3 +110,4 @@ To check an example of the app, please go to the following URL:
 ```
 http://35.199.92.21
 ```
+Add the corresponding endpoints and parameters to access the app.
